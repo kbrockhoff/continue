@@ -31,16 +31,6 @@ class FileSystemIde implements IDE {
   onDidChangeActiveTextEditor(callback: (filepath: string) => void): void {
     throw new Error("Method not implemented.");
   }
-  fileExists(filepath: string): Promise<boolean> {
-    return Promise.resolve(fs.existsSync(filepath));
-  }
-
-  gotoDefinition(location: Location): Promise<RangeInFile[]> {
-    throw new Error("Method not implemented.");
-  }
-  onDidChangeActiveTextEditor(callback: (filepath: string) => void): void {
-    throw new Error("Method not implemented.");
-  }
 
   async getIdeSettings(): Promise<IdeSettings> {
     return {
@@ -64,15 +54,15 @@ class FileSystemIde implements IDE {
   }
   async listDir(dir: string): Promise<[string, FileType][]> {
     const all: [string, FileType][] = fs
-      .readdirSync(dir, { withFileTypes: true })
-      .map((dirent: any) => [
-        dirent.name,
-        dirent.isDirectory()
-          ? (2 as FileType.Directory)
-          : dirent.isSymbolicLink()
-            ? (64 as FileType.SymbolicLink)
-            : (1 as FileType.File),
-      ]);
+        .readdirSync(dir, { withFileTypes: true })
+        .map((dirent: any) => [
+          dirent.name,
+          dirent.isDirectory()
+              ? (2 as FileType.Directory)
+              : dirent.isSymbolicLink()
+                  ? (64 as FileType.SymbolicLink)
+                  : (1 as FileType.File),
+        ]);
     return Promise.resolve(all);
   }
   infoPopup(message: string): Promise<void> {
@@ -128,8 +118,8 @@ class FileSystemIde implements IDE {
   }
 
   async getTopLevelCallStackSources(
-    threadIndex: number,
-    stackDepth: number,
+      threadIndex: number,
+      stackDepth: number,
   ): Promise<string[]> {
     return Promise.resolve([]);
   }
@@ -139,9 +129,9 @@ class FileSystemIde implements IDE {
   }
 
   showLines(
-    filepath: string,
-    startLine: number,
-    endLine: number,
+      filepath: string,
+      startLine: number,
+      endLine: number,
   ): Promise<void> {
     return Promise.resolve();
   }
@@ -197,9 +187,9 @@ class FileSystemIde implements IDE {
   }
 
   showDiff(
-    filepath: string,
-    newContents: string,
-    stepIndex: number,
+      filepath: string,
+      newContents: string,
+      stepIndex: number,
   ): Promise<void> {
     return Promise.resolve();
   }
